@@ -1,33 +1,42 @@
-import React from 'react'
-import { Text, View, Image, StyleSheet, FlatList } from 'react-native'
-import ResultDetail from './ResultDetail'
+import React from "react";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import ResultDetail from "./ResultDetail";
 
-const ResultsList = ({ title, results }) => {
-    return (
-        <View style={styles.content}>
-            <Text style={styles.title}> {title} </Text>
-            <FlatList
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={results}
-            keyExtractor={result => result.id}
-            renderItem={({item}) => 
-                <ResultDetail item={item}/>
-            }
-            />
-        </View>
-    )
-}
+const ResultsList = ({ title, results, navigation }) => {
+  return (
+    <View style={styles.content}>
+      <Text style={styles.title}> {title} </Text>
+      <FlatList
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        data={results}
+        keyExtractor={(result) => result.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("ResultsShow")}>
+            <ResultDetail item={item} />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    content: {
-        // marginLeft: 16
-    },
-    title: {
-        marginLeft: 12,
-        fontSize: 24, 
-        fontWeight: 'bold'
-    }
-})
+  content: {
+    // marginLeft: 16
+  },
+  title: {
+    marginLeft: 12,
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+});
 
-export default ResultsList
+export default ResultsList;
