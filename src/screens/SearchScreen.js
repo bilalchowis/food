@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 import useResults from "../hooks/useResults";
 import ResultsList from "../components/ResultsList";
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = () => {
   const [text, setText] = useState("");
   const [fetch, results, errorMessage] = useResults();
 
@@ -24,18 +24,9 @@ const SearchScreen = ({ navigation }) => {
         <ResultsList
           title="Cost Effective"
           results={filterResultsByPrice("$$")}
-          navigation={navigation}
         />
-        <ResultsList
-          title="Bit Pricer"
-          results={filterResultsByPrice("$$")}
-          navigation={navigation}
-        />
-        <ResultsList
-          title="Big Spender"
-          results={filterResultsByPrice("$$")}
-          navigation={navigation}
-        />
+        <ResultsList title="Bit Pricer" results={filterResultsByPrice("$$")} />
+        <ResultsList title="Big Spender" results={filterResultsByPrice("$$")} />
       </ScrollView>
     </View>
   );
