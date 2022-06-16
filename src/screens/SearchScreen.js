@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import SearchBar from '../components/SearchBar'
+import useResults from '../hooks/useResults'
+import ResultsList from '../components/ResultsList'
 
 const SearchScreen = () => {
     const [text, setText] = useState("")
-    
-    function searchRestaurants() {
+    const [fetch, results, errorMessage] = useResults()
 
+    function filterResultsByPrice(price) {
+        return results.filter(result => { return result.price === price })
     }
 
     return (
@@ -14,9 +17,15 @@ const SearchScreen = () => {
             <View style={style.searchBar} >
                 <SearchBar                 
                     didChangeText={setText}
-                    onSearchTap={searchRestaurants}
+                    onSearchTap={() => fetch(text) }
                 />
             </View>
+            {errorMessage ? <Text>errorMessage</Text> : null}
+            <ScrollView>
+            <ResultsList title="Cost Effective" results={filterResultsByPrice('$$')}/>
+            <ResultsList title="Bit Pricer" results={filterResultsByPrice('$$')}/>
+            <ResultsList title="Big Spender" results={filterResultsByPrice('$$')}/>
+            </ScrollView>
         </View>
     )
 }
